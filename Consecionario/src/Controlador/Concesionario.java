@@ -8,6 +8,7 @@ import Vista.Vista;
 import java.util.ArrayList;
 
 
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -111,6 +112,8 @@ public class Concesionario {
     }
 
 
+
+    //Buscar coches
     public void searchCars() {
 
         boolean found = false;

@@ -1,9 +1,12 @@
 package Modelo;
 
+import java.util.Date;
+
 public class Ventas {
     private Coche car;
     private Cliente client;
     private int id;
+    private Date fecha;
 
 
 
@@ -33,17 +36,27 @@ public class Ventas {
         this.id = id;
     }
 
-    //Constructor
+    public Date getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+
+//Constructor
 
     public Ventas(Coche car, Cliente client,  int id) {
         this.car = car;
         this.client = client;
         this.id = id;
+        this.fecha = new Date();
     }
 
     public String toString() {
         return "id: " + id + "\n" +
                 "Coche: " + car + "\n" +
-                " | Cliente: " + client + "\n";
+                " | Cliente: " + client + "\n" +
+                " | Fecha: " + fecha + "\n";
     }
 }
