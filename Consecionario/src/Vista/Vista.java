@@ -10,23 +10,34 @@ import java.util.Scanner;
 
 public class Vista {
 
+    //Declaracion de variables que guardan los colores en codigo ANSI para daerle color al menu
+    public static final String RESET = "\u001B[0m";
+    public static final String Blue = "\u001B[34m";
 
     static Scanner sc = new Scanner(System.in);
 
     public int menu() {
-        System.out.println("=========================");
-        System.out.println("Bienvenisdo a UniqueCars");
-        System.out.println("=========================");
+        System.out.println(Blue + " " + "=========================" + RESET);
+        System.out.println(Blue + "||" + RESET + "Bienvenisdo a UniqueCars" + Blue + "||" + RESET);
+        System.out.println(Blue + " " + "=========================" + RESET);
         System.out.println("");
         System.out.println("Sleccione que quiere realizar:");
-        System.out.println("-----------------------------");
-        System.out.println("1. Añadir coches al concesionario");
-        System.out.println("2. Mostar los coches disponibles");
-        System.out.println("3. Buscar coches disponibles");
-        System.out.println("4. Registrar un nuevo cliente");
-        System.out.println("5. Registrar una venta");
-        System.out.println("6. Listar ventas ");
-        System.out.println("7. Salir");
+        System.out.println(Blue + "------------------------------------" + RESET);
+        System.out.println(Blue + "|" + RESET + " " + "1. Añadir coches al concesionario" + Blue + "|" + RESET);
+        System.out.println(Blue + "------------------------------------" + RESET);
+        System.out.println(Blue + "|" + RESET + " " + "2. Mostar los coches disponibles " + Blue + "|" + RESET);
+        System.out.println(Blue + "------------------------------------" + RESET);
+        System.out.println(Blue + "|" + RESET + " " + "3. Buscar coches disponibles     " + Blue + "|" + RESET);
+        System.out.println(Blue + "------------------------------------" + RESET);
+        System.out.println(Blue + "|" + RESET + " " + "4. Registrar un nuevo cliente    " + Blue + "|" + RESET);
+        System.out.println(Blue + "------------------------------------" + RESET);
+        System.out.println(Blue + "|" + RESET + " " + "5. Registrar una venta           " + Blue + "|" + RESET);
+        System.out.println(Blue + "------------------------------------" + RESET);
+        System.out.println(Blue + "|" + RESET + " " + "6. Listar ventas                 " + Blue + "|" + RESET);
+        System.out.println(Blue + "------------------------------------" + RESET);
+        System.out.println(Blue + "|" + RESET + " " + "7. Salir                         " + Blue + "|" + RESET);
+        System.out.println(Blue + "------------------------------------" + RESET);
+
 
         int userImput = sc.nextInt();
         sc.nextLine();
@@ -71,18 +82,24 @@ public class Vista {
         sc.nextLine();
         return year;
     }
-    public int askPrize() {
+    public double askPrice() {
 
         System.out.println("Que precio tiene");
-        int prize = sc.nextInt();
+        double prize = sc.nextDouble();
         sc.nextLine();
         return prize;
     }
     public String askNumberPlate() {
 
-        System.out.println("Dime numero de la chapa");
+        System.out.println("Dime numero de la matricula");
         String NumberPlate = sc.nextLine();
         return NumberPlate;
+    }
+    public double askKm() {
+        System.out.println("Cuantos Kilometros tiene");
+        double km = sc.nextDouble();
+        sc.nextLine();
+        return km;
     }
 
 
@@ -105,8 +122,9 @@ public class Vista {
         System.out.println("Elige como quieres buscar el coche");
         System.out.println("------------------------------------");
         System.out.println("1. Por la marca");
-        System.out.println("2. Por la precio");
+        System.out.println("2. Por el precio");
         System.out.println("3. Por el año");
+        System.out.println("4. Salir");
 
         int userImput = sc.nextInt();
         sc.nextLine();
@@ -117,7 +135,7 @@ public class Vista {
         System.out.println("Lo siento, no tenemos coches de la marca " + brand + " actualmente");
     }
     //Por precio
-    public int[] searchCarsPrize() {
+    public int[] searchCarsPrice() {
         System.out.println("Dame un rango de precios:");
         System.out.println("-------------------------");
         System.out.println("Valor minimo:");
@@ -133,11 +151,11 @@ public class Vista {
 
         return range;
     }
-    public void carNotFoundUnderPrize() {
+    public void carNotFoundUnderPrice() {
 
         System.err.println("Lo siento, no tenemos un coche tan barato como ese");
     }
-    public void carNotFoundOverPrize(){
+    public void carNotFoundOverPrice(){
         System.err.println("Lo siento, no tenemos ningun coche tan caro como ese");
     }
     //por año

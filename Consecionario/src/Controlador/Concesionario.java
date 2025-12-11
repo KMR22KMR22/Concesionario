@@ -8,7 +8,6 @@ import Vista.Vista;
 import java.util.ArrayList;
 
 
-import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -18,17 +17,18 @@ public class Concesionario {
     Scanner sc = new Scanner(System.in);
 
     private Vista vista;
+    private double topPrice;
 
     //Creo el ArrayList de los coches
     static List<Coche> coches = new ArrayList<>();
 
     public void declaracionCoches() {
-        coches.add(new Coche( "Lamborghini", "Gallardo", 2010, 100000, "1111ABC", false));
-        coches.add(new Coche( "Lamborghini", "Aventador", 2021, 5000000, "1111ABC", false));
-        coches.add(new Coche( "Porsche", "911", 2024, 90000, "1111ABC", false));
-        coches.add(new Coche( "Porsche", "Cayanne - SUV", 2017, 95000, "1111ABC", false));
-        coches.add(new Coche( "BMW", "Serie 7 - Sedan", 2019, 123000, "1111ABC", false));
-        coches.add(new Coche( "BMW", "X7 - SUV", 2018, 104300, "1111ABC", false));
+        coches.add(new Coche( "Lamborghini", "Gallardo", 2011, 100000, "1111ABC", false, 32000));
+        coches.add(new Coche( "Lamborghini", "Aventador", 2021, 500000, "1111ABC", false, 0));
+        coches.add(new Coche( "Porsche", "911", 2021, 90000, "1111ABC", false, 10000));
+        coches.add(new Coche( "Porsche", "Cayanne - SUV", 2024, 95000, "1111ABC", false, 0));
+        coches.add(new Coche( "BMW", "Serie 7 - Sedan", 2019, 123000, "1111ABC", false, 0));
+        coches.add(new Coche( "BMW", "X7 - SUV", 2018, 104300, "1111ABC", false, 19000));
     }
 
     //Creo el ArrayList de los clientes
@@ -91,7 +91,13 @@ public class Concesionario {
 
 
     public void addCar() {
-        coches.add(new Coche(vista.askBrand(), vista.askmodel(), vista.askYear(), vista.askPrize(), vista.askNumberPlate(), false));
+        coches.add(new Coche(vista.askBrand(), vista.askmodel(), vista.askYear(), vista.askPrice(), vista.askNumberPlate(), false, vista.askKm()));
+
+        for (Coche c : coches) {
+            if(c.getPrice() > this.topPrice) {
+                this.topPrice = c.getPrice();
+            }
+        }
     }
 
 
@@ -145,19 +151,19 @@ public class Concesionario {
             //Por Precio
             if (userIput == 2) {
 
-                int[] rango = vista.searchCarsPrize();
+                int[] rango = vista.searchCarsPrice();
 
                 int min = rango[0];
                 int max = rango[1];
 
-                boolean underPrize = true;
+                boolean underPrice = true;
 
-                if (max > 500000) {
-                    underPrize = false;
+                if (max > this.topPrice) {
+                    underPrice = false;
                 }
 
                 for (Coche c : coches) {
-                    if (c.getPrize() >= min && c.getPrize() <= max) {
+                    if (c.getPrice() >= min && c.getPrice() <= max) {
                         cochesEncontrados.add(c);
                         found = true;
 
@@ -167,12 +173,12 @@ public class Concesionario {
                     vista.showCars(cochesEncontrados);
                 }
 
-                if (!found && underPrize) {
+                if (!found && underPrice) {
 
-                    vista.carNotFoundUnderPrize();
+                    vista.carNotFoundUnderPrice();
                 }
-                if (!found && !underPrize) {
-                    vista.carNotFoundOverPrize();
+                if (!found && !underPrice) {
+                    vista.carNotFoundOverPrice();
                 }
             }
 
@@ -199,7 +205,7 @@ public class Concesionario {
                 }
             }
 
-            if (found) {
+            if (found || (userIput == 4)) {
                 break;
             }
 
@@ -293,7 +299,10 @@ public class Concesionario {
     //Constructor
     public Concesionario(Vista vista) {
         this.vista = vista;
+        this.topPrice = 500000;
     }
+
+
 }
 
 

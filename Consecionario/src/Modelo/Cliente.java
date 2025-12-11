@@ -37,9 +37,9 @@ public class Cliente {
     }
 
     public String toString() {
-        return "nombre: " + name + "\n" +
-                " | dni: " + dni + "\n" +
-                " | telefono: " + phone;
+        return "nombre: " + name +
+                " | dni: " + dni +
+                " | telefono: " + phone + "\n";
     }
 }
 

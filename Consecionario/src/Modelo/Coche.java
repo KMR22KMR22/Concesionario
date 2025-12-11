@@ -4,8 +4,9 @@ public class Coche {
     private String brand;
     private String model;
     private int year;
-    private double prize;
+    private double price;
     private String numberPlate;
+    private double km;
     private boolean sold;
 
 
@@ -37,12 +38,12 @@ public class Coche {
         this.year = year;
     }
 
-    public double getPrize() {
-        return prize;
+    public double getPrice() {
+        return price;
     }
 
-    public void setPrize(int prize) {
-        this.prize = prize;
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getNumberPlate() {
@@ -61,22 +62,28 @@ public class Coche {
         this.sold = vendido;
     }
 
+    public double getKm() {
+        return km;
+    }
+
     //Controller
-    public Coche(String brand, String model, int year, double prize,  String numberPlate,  boolean sold) {
+    public Coche(String brand, String model, int year, double prize,  String numberPlate,  boolean sold, double km) {
 
         this.brand = brand;
         this.model = model;
         this.year = year;
-        this.prize = prize;
+        this.price = prize;
         this.numberPlate = numberPlate;
         this.sold = sold;
+        this.km = km;
     }
 
     public String toString() {
-        return ": Marca: " + brand +
+        return " Marca: " + brand +
                 " | Modelo: " + model +
                 " | Año: " + year +
-                " | Precio: " + prize +
-                " | Matrícula: " + numberPlate + "\n";
+                " | Precio: " + price +
+                " | Matrícula: " + numberPlate +
+                " | Kilometros: " + km + "\n";
     }
 }

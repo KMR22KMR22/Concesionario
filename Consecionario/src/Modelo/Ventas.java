@@ -55,8 +55,16 @@ public class Ventas {
 
     public String toString() {
         return "id: " + id + "\n" +
-                "Coche: " + car + "\n" +
-                " | Cliente: " + client + "\n" +
-                " | Fecha: " + fecha + "\n";
+                "---" + "\n" +
+                "Coche: " + "\n" +
+                "-------" + "\n" +
+                car + "\n" +
+                "Cliente: " + "\n" +
+                "-------" + "\n" +
+                client + "\n" +
+                "Fecha: " + "\n" +
+                "-------" + "\n" +
+                fecha + "\n" ;
+
     }
 }
