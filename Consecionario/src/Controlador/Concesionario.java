@@ -19,6 +19,10 @@ public class Concesionario {
     private Vista vista;
     private double topPrice;
 
+    //Declaracion de variables que guardan los colores en codigo ANSI para daerle color al menu
+    public static final String RESET = "\u001B[0m";
+    public static final String Blue = "\u001B[34m";
+
     //Creo el ArrayList de los coches
     static List<Coche> coches = new ArrayList<>();
 
@@ -61,7 +65,7 @@ public class Concesionario {
             int userInput;
 
             try {
-                userInput = vista.menu();
+                userInput = vista.menu(RESET, Blue);
                 if (userInput >= 1 && userInput <= 7) {
 
                     if (userInput == 1) {
@@ -86,11 +90,11 @@ public class Concesionario {
                         break;
                     }
                 } else {
-                    vista.wrongImput();
+                    vista.showErrorMessage("Dame un numero del 1 al 7");
                 }
 
             } catch (Exception e) {
-                vista.wrongImput();
+                vista.showErrorMessage("Solo se admiten numeros del 1 al 7");
                 sc.nextLine();       //Pongo este nextLine porque si no me hace un bucle infinito mostrando el error constantemente
             }
         }
@@ -101,9 +105,35 @@ public class Concesionario {
      * Añade un cocehe al concesionario (arraylist de coches) preguntandole al usuario por cada uno de los datos del coche que va a añadir*/
     public void addCar() {
 
-        String brand = vista.askBrand();
-        String model = vista.askmodel();
+        String brand;
+        String model;
         int year;
+        double price;
+        double km;
+        String numberPlate;
+
+        //Compruebo que la marca no la deje en blanco
+        while (true) {
+            brand= vista.askBrand();
+
+            if (brand.equals("")) {
+                vista.showErrorMessage("Debe ingresar la marca");
+            }else {
+                break;
+            }
+
+        }
+
+        //Compruebo que el modelo no lo deje en blanco
+        while (true) {
+            model = vista.askmodel();
+
+            if (model.equals("")) {
+                vista.showErrorMessage("Debe ingresar el modelo");
+            }else {
+                break;
+            }
+        }
 
         //Compruebo que cuando el usuario ponga el año del coche este no sea menor a 1900 o mayor a 2026
         while (true) {
@@ -114,14 +144,11 @@ public class Concesionario {
 
                 break;
             }else {
-                vista.wrongImput();
+                vista.showErrorMessage("Solo se pueden añadir coches entre 1900 y 2026");
             }
         }
 
-        double price;
-
         //Compruebo que cuando el usuario ponga el precio este no sea menor que 30000 (ya no es un precio demaciado bajo para un coche, y este es un concesoinario de lujo), y que no sea mayor a 30millones (ya que no hay coches de lujo que cuesten mas que eso)
-
         while (true) {
 
             price = vista.askPrice();
@@ -130,13 +157,23 @@ public class Concesionario {
 
                 break;
             }else {
-                vista.wrongImput();
+                vista.showErrorMessage("Solo se pueden añadir coches entre 30mil y 30millones de euros");
             }
         }
 
-        String numberPlate = vista.askNumberPlate();
+        //Compruebo que el usuario no deje la matricula en blanco
+        while(true){
+            numberPlate = vista.askNumberPlate();
 
-        double km;
+            if (numberPlate.equals("")) {
+                vista.showErrorMessage("Debe ingresar la matricula");
+            }else {
+                break;
+            }
+        }
+
+
+
 
         //Compruebo que cuando el usuario ponga los km del coche estos no exedan los 60000 km ya que es demaciado uso para un coche que voy a vender en un concesionario de lujo
 
@@ -148,7 +185,7 @@ public class Concesionario {
 
                 break;
             }else{
-                vista.wrongImput();
+                vista.showErrorMessage("EL coche no puede tener menos de 0 KM o mas de 60mil KM");
             }
         }
 
@@ -231,7 +268,7 @@ public class Concesionario {
                     if (min > 0){
                         break;
                     }else{
-                        vista.wrongImput();
+                        vista.showErrorMessage("No se admiten valores negativos");
                     }
                 }
 
@@ -328,6 +365,7 @@ public class Concesionario {
 
         List<Coche> carsForSale = new ArrayList<>();
 
+        vista.messageToBuy();
         carsForSale = showCars();
 
         if (!carsForSale.isEmpty()) {
@@ -336,8 +374,8 @@ public class Concesionario {
 
             while (true) {
                 choise = vista.askToPickCar();
-                if (choise <= 0 || choise >= coches.size()) {
-                    vista.wrongImput();
+                if (choise <= 0 || choise > coches.size()) {
+                    vista.showErrorMessage("Ese numero de coche no existe");
                 } else {
                     break;
                 }
@@ -362,7 +400,11 @@ public class Concesionario {
      * Llama a la funcion de la vista que mustra el arraylist de ventas*/
     public void showSales() {
 
-        vista.showSales(ventas);
+        if(!ventas.isEmpty()) {
+            vista.showSales(ventas);
+        }else {
+            vista.showErrorMessage("No se han realizado ventas todavia");
+        }
     }
 
 

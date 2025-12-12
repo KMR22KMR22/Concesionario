@@ -10,17 +10,13 @@ import java.util.Scanner;
 
 public class Vista {
 
-    //Declaracion de variables que guardan los colores en codigo ANSI para daerle color al menu
-    public static final String RESET = "\u001B[0m";
-    public static final String Blue = "\u001B[34m";
-
     static Scanner sc = new Scanner(System.in);
 
     /**
      * Muestra el menu
      *
      * @return La opcion que eligió el usuario*/
-    public int menu() {
+    public int menu(String RESET, String Blue) {
         System.out.println(Blue + " " + "=========================" + RESET);
         System.out.println(Blue + "||" + RESET + "Bienvenisdo a UniqueCars" + Blue + "||" + RESET);
         System.out.println(Blue + " " + "=========================" + RESET);
@@ -53,9 +49,11 @@ public class Vista {
 
 
     /**
-     * Muestra un mensaje de valor no admitido para cuando el usuario ponga algun valor que no deba*/
-    public void wrongImput(){
-        System.err.println("Valor no admitido");
+     * Muestra mensaje de error
+     *
+     * @param message*/
+    public void showErrorMessage(String message) {
+        System.err.println(message);
     }
 
 
@@ -109,7 +107,7 @@ public class Vista {
         return prize;
     }
     /**
-     * Pide la matricula del coche que se quiere agragar
+     * Pide la matrícula del coche que se quiere agragar
      * @return matricula*/
     public String askNumberPlate() {
 
@@ -133,7 +131,7 @@ public class Vista {
     /**
      * Muestra la lista de coches
      *
-     * @param coches de coches*/
+     * @param coches* */
     public void showCars(List<Coche> coches) {
         for(int i = 0; i < coches.size(); i++) {
 
@@ -324,4 +322,5 @@ public class Vista {
         }
 
     }
+
 }
